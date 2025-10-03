@@ -22,6 +22,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Ofast -march=native -fno-unsafe-math-optimizations
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 
 project(demucs.cpp)
+find_package(Threads REQUIRED)
 enable_testing()
 
 # set C++ standard to C++17
@@ -97,12 +98,12 @@ target_link_libraries(demucs_ft.cpp.main demucs.cpp.lib libnyquist)
 add_executable(demucs_mt.cpp.main "cli-apps/demucs_mt.cpp")
 target_include_directories(demucs_mt.cpp.main PRIVATE vendor/libnyquist/include)
 target_include_directories(demucs_mt.cpp.main PRIVATE cli-apps)
-target_link_libraries(demucs_mt.cpp.main demucs.cpp.lib libnyquist)
+target_link_libraries(demucs_mt.cpp.main demucs.cpp.lib libnyquist ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(demucs_ft_mt.cpp.main "cli-apps/demucs_ft_mt.cpp")
 target_include_directories(demucs_ft_mt.cpp.main PRIVATE vendor/libnyquist/include)
 target_include_directories(demucs_ft_mt.cpp.main PRIVATE cli-apps)
-target_link_libraries(demucs_ft_mt.cpp.main demucs.cpp.lib libnyquist)
+target_link_libraries(demucs_ft_mt.cpp.main demucs.cpp.lib libnyquist ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(demucs_v3.cpp.main "cli-apps/demucs_v3.cpp")
 target_include_directories(demucs_v3.cpp.main PRIVATE vendor/libnyquist/include)
@@ -112,7 +113,7 @@ target_link_libraries(demucs_v3.cpp.main demucs.cpp.lib libnyquist)
 add_executable(demucs_v3_mt.cpp.main "cli-apps/demucs_v3_mt.cpp")
 target_include_directories(demucs_v3_mt.cpp.main PRIVATE vendor/libnyquist/include)
 target_include_directories(demucs_v3_mt.cpp.main PRIVATE cli-apps)
-target_link_libraries(demucs_v3_mt.cpp.main demucs.cpp.lib libnyquist)
+target_link_libraries(demucs_v3_mt.cpp.main demucs.cpp.lib libnyquist ${CMAKE_THREAD_LIBS_INIT})
 
 file(GLOB SOURCES_TO_LINT "src/*.cpp" "src/*.hpp" "cli-apps/*.cpp" "cli-apps/*.hpp")
 
