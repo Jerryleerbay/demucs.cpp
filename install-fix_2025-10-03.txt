@@ -37,4 +37,20 @@ Demucs.cpp 安装与修复步骤总结 - 2025-10-03
     *   经过分析，确定需要将工作目录切换到 `build` 目录下才能正确解析测试文件所需的相对路径。
     *   最终，在 `build` 目录下成功执行了测试，所有 24 个测试用例全部通过。
 
+5.  **任务 B：编译 Wasm 模块 (.wasm 文件)**:
+    *   目标：将 demucs.cpp 的 C++ 原始码编译成浏览器可以执行的 .wasm 文件。
+    *   **安装 Emscripten SDK**:
+        *   从 GitHub 克隆 `emsdk` 仓库。
+        *   执行 `./emsdk install latest` 和 `./emsdk activate latest` 来安装和激活最新版本的 SDK。
+    *   **编译 Wasm 模块**:
+        *   初次尝试使用 `emmake make web` 命令，但因 `Makefile` 中没有 `web` 目标而失败。
+        *   接着尝试使用 `emcmake` 和 `cmake` 来配置 `src_wasm` 目录下的 `CMakeLists.txt`，但在 `build` 目录中因缓存冲突而失败。
+        *   创建了一个新的 `build_wasm` 目录来解决冲突。
+        *   在 `build_wasm` 目录中，编译因缺少 SSE 指令集支持而失败。
+        *   通过修改 `src_wasm/CMakeLists.txt` 文件，在 `CMAKE_CXX_FLAGS_RELEASE` 中添加了 `-msse -msse2 -msse3 -mssse3 -msse4.1` 标志。
+        *   再次尝试在 `build_wasm` 目录中进行编译，但仍然失败。
+        *   最终，通过在 `emcmake` 命令中直接传递 `CMAKE_CXX_FLAGS_RELEASE` 参数，成功编译了 Wasm 模块。
+    *   **编译成功**:
+        *   在 `build_wasm` 目录下成功生成了 `demucs.js` 和 `demucs.wasm` 文件。
+
 至此，项目已成功编译，并且模型文件也已下载完毕，可以随时用于音频处理。

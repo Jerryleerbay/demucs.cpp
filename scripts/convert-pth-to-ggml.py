@@ -96,7 +96,7 @@ if __name__ == '__main__':
     try:
         model_bytes = open(fname_inp, "rb").read()
         with io.BytesIO(model_bytes) as fp:
-            checkpoint = torch.load(fp, map_location="cpu")
+            checkpoint = torch.load(fp, map_location="cpu", weights_only=False)
     except Exception:
         print("Error: failed to load PyTorch model file:" , fname_inp)
         sys.exit(1)

@@ -1,0 +1,4 @@
+- echo $PATH
+- /home/claude-ft/.local/bin/uv venv --python 3.11
+- source .venv/bin/activate && /home/claude-ft/.local/bin/uv pip install -r ./scripts/requirements.txt
+- read_file on /home/claude-ft/commands-history_2025-10-04-01.txt

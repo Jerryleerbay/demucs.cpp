@@ -1,0 +1,7 @@
+LICENSE
+README.md
+pyproject.toml
+src/demucs_cpp.egg-info/PKG-INFO
+src/demucs_cpp.egg-info/SOURCES.txt
+src/demucs_cpp.egg-info/dependency_links.txt
+src/demucs_cpp.egg-info/top_level.txt
