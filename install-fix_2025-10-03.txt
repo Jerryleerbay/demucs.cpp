@@ -1,0 +1,33 @@
+Demucs.cpp 安装与修复步骤总结 - 2025-10-03
+
+本文件总结了在 demucs.cpp 项目中执行的安装和修复步骤。
+
+1.  **项目构建**:
+    *   通过分析项目结构，确认为 CMake 构建系统。
+    *   阅读 `README.md` 文件获取官方构建指南。
+    *   执行了以下命令来编译项目：
+        ```sh
+        mkdir -p build && cd build && cmake .. && make -j16
+        ```
+    *   编译成功，生成了 `demucs.cpp.main` 等多个可执行文件。
+
+2.  **模型权重下载**:
+    *   根据 `README.md` 的指引，从 Hugging Face 下载预转换的 ggml 模型权重。
+    *   执行了 `wget` 命令，将所有模型文件下载到 `ggml-demucs/` 目录下。下载的模型包括：
+        *   `ggml-model-hdemucs_mmi-v3-f16.bin`
+        *   `ggml-model-htdemucs-4s-f16.bin`
+        *   `ggml-model-htdemucs-6s-f16.bin`
+        *   `ggml-model-htdemucs_ft_bass-4s-f16.bin`
+        *   `ggml-model-htdemucs_ft_drums-4s-f16.bin`
+        *   `ggml-model-htdemucs_ft_other-4s-f16.bin`
+        *   `ggml-model-htdemucs_ft_vocals-4s-f16.bin`
+
+3.  **运行推理 (被取消)**:
+    *   用户提供了音频文件 `priceless.mp3`。
+    *   准备执行以下命令进行音源分离：
+        ```sh
+        mkdir -p demucs-out-cpp && ./build/demucs.cpp.main ./ggml-demucs/ggml-model-htdemucs-4s-f16.bin /home/claude-ft/demucs.cpp/priceless.mp3 ./demucs-out-cpp/
+        ```
+    *   该操作在执行前被用户取消。
+
+至此，项目已成功编译，并且模型文件也已下载完毕，可以随时用于音频处理。
